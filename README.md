@@ -1,2 +1,2 @@
 # GooseAttackBot
-Goose Attack Discord Bot
+This is my Goose Attack Discord Bot! 
