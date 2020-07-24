@@ -42,7 +42,7 @@ async def honking(ctx):
     await ctx.send(response)
 
 power=0
-@bot.command(name='army', help='Assembles goose army, dont abuse this power.')
+@bot.command(name='army', help='Assembles powerful goose army')
 async def assemble(ctx):
     global power, ass
     number = int(random.triangular(1,101,10))
@@ -50,14 +50,14 @@ async def assemble(ctx):
     answer = "Assembled goose army of size "+str(number)+"!\nCP: "+str(number*12)
     await ctx.send(answer+"\nready to ~~attack~~ say hi")
 
-@bot.command(name='attack', help='Attacks mentioned user with army previously generated.')
+@bot.command(name='attack', help='Attacks the mentioned user with army previously generated.')
 async def attack(ctx, member : discord.Member):
     say = "With the power of "+str(power)+" geese, "+str(ctx.message.author.mention)
     if power==0:
         await ctx.send("HONK must assemble army first!")
     else:
-        await ctx.send(say+" attacked <@{}>!".format(member.id))
-
+        await ctx.send(say+" brutally attacked <@{}>!".format(member.id))
+'''
 @bot.command(name='create-channel', help='Creates a new channel.')
 @commands.has_role('admin')
 async def create_channel(ctx, channel_name='channel'):
@@ -70,6 +70,6 @@ async def create_channel(ctx, channel_name='channel'):
 async def on_command_error(ctx, error):
     if isinstance(error, commands.errors.CheckFailure):
         await ctx.send('Honk! You do not have the correct role for this command.')
-
+'''
 
 bot.run(TOKEN)
