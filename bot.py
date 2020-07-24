@@ -1,7 +1,6 @@
 # bot.py
 import os
 import random
-
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
@@ -12,6 +11,11 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 bot = commands.Bot(command_prefix='!')
 
 client = discord.Client()
+
+@bot.event
+async def on_ready():
+    await bot.get_channel(735887013215076366).send("HONK HONK BITCHES\n"
+         "I have arrived :gun::baby_chick:")
 
 @bot.event
 async def on_member_join(member):
@@ -53,7 +57,7 @@ async def assemble(ctx):
 
 @bot.command(name='attack', help='Attacks the mentioned user with army previously generated.')
 async def attack(ctx, member : discord.Member):
-    say = "With the power of "+str(power)+" geese, "+str(ctx.message.author.mention)
+    say = "With the power of "+str(power)+" geese, "+'\n'+str(ctx.message.author.mention)
     attackquotes=[
         " brutally attacked",
         " knocked out",
