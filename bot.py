@@ -4,6 +4,7 @@ import random
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
+from discord.utils import find
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -13,14 +14,20 @@ bot = commands.Bot(command_prefix='!')
 client = discord.Client()
 
 @bot.event
-async def on_ready():
-    await bot.get_channel(735887013215076366).send("HONK activated")
+async def on_guild_join(guild):
+    general = find(lambda x: x.name == 'general',  guild.text_channels)
+    if general and general.permissions_for(guild.me).send_messages:
+        await general.send('HONK HONK BITCHES\nI have arrived :gun::baby_chick:')
     for guild in bot.guilds:
         for member in guild.members:
             await member.create_dm()
             await member.dm_channel.send(
             f'HONK HONK **{member.name}**!\n'
-            f'Always nice to meet another ~~victim~~ friend :gun::baby_chick:')
+            f'Always nice to meet another ~~victim~~ friend :heart:')
+
+
+#async def on_ready():
+    #await bot.get_channel(735887013215076366).send("HONK activated")
 
 @bot.event
 async def on_message(message):
