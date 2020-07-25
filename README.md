@@ -5,5 +5,5 @@ Geese around the campus are known as very violent to anyone in its path, and wha
 Type !help on your Discord server to explore the different ways to attac- i mean say hi to your friends, and assert dominanc- i mean assert your friendship. 
 May the strongest goose win.
 
-CLICK THE LINK BELOW to add to your server, enjoy!
+CLICK THE LINK to add to your server, hope you enjoy!
 https://discordapp.com/oauth2/authorize?client_id=735870118646775928&scope=bot&permissions=1312291904
