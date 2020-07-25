@@ -19,8 +19,8 @@ async def on_ready():
         for member in guild.members:
             await member.create_dm()
             await member.dm_channel.send(
-                f'HONK HONK **{member.name}**\n'
-                    f'Always nice to meet another ~~victim~~ friend :gun::baby_chick:')
+            f'HONK HONK **{member.name}**!\n'
+            f'Always nice to meet another ~~victim~~ friend :gun::baby_chick:')
 
 @bot.event
 async def on_message(message):
