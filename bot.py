@@ -14,14 +14,13 @@ client = discord.Client()
 
 @bot.event
 async def on_ready():
-    await bot.get_channel(735887013215076366).send("HONK HONK BITCHES\n"
-         "I have arrived :gun::baby_chick:")
-
-@bot.event
-async def on_member_join(member):
-    #sends user a message on joining server
-    await member.create_dm()
-    await member.dm_channel.send(f'HONK\nAwful to meet you {member.name}, I\'m Mr. Goose!\n')
+    await bot.get_channel(735887013215076366).send("HONK activated")
+    for guild in bot.guilds:
+        for member in guild.members:
+            await member.create_dm()
+            await member.dm_channel.send(
+                f'HONK HONK **{member.name}**\n'
+                    f'Always nice to meet another ~~victim~~ friend :gun::baby_chick:')
 
 @bot.event
 async def on_message(message):
