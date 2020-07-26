@@ -42,7 +42,12 @@ async def on_guild_join(guild):
             await member.create_dm()
             await member.dm_channel.send(
             f'HONK HONK **{member.name}**!\n'
-            f'Always nice to meet another ~~victim~~ friend :heart:')
+            f'Always nice to meet another ~~victim~~ friend :heart:\n\n'
+            f'Here\'s what you can do:\n'
+            f'**!honk:** honk at me and I\'ll respond.\n'
+            f'**!army:** assemble your own goose army, use it to attack others.\n'
+            f'**!attack @[user]:** unleash hell on another user.\n'
+            f'**!stats:** check your stats.\n')
             assignhealth(member.id)
 
 #alert when ready
