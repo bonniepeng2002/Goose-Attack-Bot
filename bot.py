@@ -28,16 +28,22 @@ def checkifdead(victim):
 
 #---------------------FILES----------------------
 
-uno = 'https://i.pinimg.com/474x/5e/14/74/5e1474e0f4edcf26c0277310b41c0adb.jpg'
+uno = discord.Embed()
+uno.set_image(url='https://media.tenor.com/images/ee6e6bb6f35b030eab0dbb7c12040275/tenor.gif')
 
 #---------------------EVENTS----------------------
 
 #send message when joined
 @bot.event
 async def on_guild_join(guild):
+    global users
+    users.append(['Mr.Goose#8280', max, 0, False,
+                  'Alive'])  # since joining guild, doesn't append itself
+    await bot.change_presence(
+        activity=discord.Game(name='Untitled Goose Game'))
     general = find(lambda x: x.name == 'general',  guild.text_channels)
     if general and general.permissions_for(guild.me).send_messages:
-        await general.send('HONK HONK B*TCHES\nI have arrived :gun::baby_chick:')
+        await general.send('HONK HONK B*TCHES :gun::baby_chick:')
     for guild in bot.guilds:
         for member in guild.members:
             await member.create_dm()
@@ -50,27 +56,23 @@ async def on_guild_join(guild):
             f'**!attack @[user]** : unleash hell on another user.\n'
             f'**!stats** : check your stats.\n')
             assignhealth(member)
-        users.append(['Mr.Goose#8280', max, 0, False, 'Alive']) #since joining guild, doesn't append itself
-        await bot.change_presence(
-            activity=discord.Game(name='Untitled Goose Game'))
+            print(users)
 
 #alert when ready
-'''@bot.event
+@bot.event
 async def on_ready():
     #await bot.get_channel(735887013215076366).send("HONK activated")
     print('Honk activated')
-    for guild in bot.guilds:
-        for member in guild.members:
-            print("creating list")
-            assignhealth(member)
-    await bot.change_presence(activity=discord.Game(name='Untitled Goose Game'))
-    print(users)
-'''
+    #for guild in bot.guilds:
+        #for member in guild.members:
+            #assignhealth(member)
+    #await bot.change_presence(activity=discord.Game(name='Untitled Goose Game'))
+
 # we do not want the bot to reply to itself
 @bot.event
 async def on_message(message):
     await bot.process_commands(message)
-    if message.author == client.user:
+    if message.author == bot.user:
         return
 
 #---------------------COMMANDS----------------------
@@ -156,14 +158,7 @@ async def attack(ctx, member : discord.Member):
                 await ctx.send("Stop it. Get some help.")
 
             elif str(member) == "Mr.Goose#8280": #if you attack the bot
-                async with aiohttp.ClientSession() as session:
-                    async with session.get(uno) as resp:
-                        if resp.status != 200:
-                            return await ctx.send(
-                                'no. u. :gun:')
-                        data = io.BytesIO(await resp.read())
-                        await ctx.send(
-                            file=discord.File(data, 'uno reverse'))
+                await ctx.send(embed=uno)
                 await ctx.send(ctx.message.author.mention+" was killed by Mr. Goose.")
                 users[h][1]=0
                 users[h][3]=True
