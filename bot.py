@@ -1,7 +1,5 @@
 # bot.py
-import os
-import random
-import discord
+import os, random, discord, io, aiohttp
 from discord.ext import commands
 from dotenv import load_dotenv
 from discord.utils import find
@@ -10,7 +8,6 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 bot = commands.Bot(command_prefix='!')
 client = discord.Client()
-
 
 #---------------------FUNCTIONS----------------------
 
@@ -28,6 +25,10 @@ def checkifdead(victim):
             users[i][1]=0
             users[i][4]='Dead'
             return True
+
+#---------------------FILES----------------------
+
+uno = 'https://i.pinimg.com/474x/5e/14/74/5e1474e0f4edcf26c0277310b41c0adb.jpg'
 
 #---------------------EVENTS----------------------
 
@@ -59,6 +60,7 @@ async def on_ready():
         for member in guild.members:
             print(member)
             assignhealth(member)
+    await bot.change_presence(activity=discord.Game(name='Untitled Goose Game'))
 
 # we do not want the bot to reply to itself
 @bot.event
@@ -135,8 +137,18 @@ async def attack(ctx, member : discord.Member):
             await ctx.send("HONK must assemble army first!")
             break
         elif str(ctx.message.author)==users[h][0] and users[h][2]!=0:
-            if str(member) == "Mr.Goose#8280":
-                await ctx.send("uno reverse.\n"+ctx.message.author.mention+" was killed by Mr. Goose.")
+            if str(member) == str(ctx.message.author):
+                await ctx.send("Stop it. Get some help.")
+            elif str(member) == "Mr.Goose#8280":
+                async with aiohttp.ClientSession() as session:
+                    async with session.get(uno) as resp:
+                        if resp.status != 200:
+                            return await ctx.send(
+                                'Could not download file...')
+                        data = io.BytesIO(await resp.read())
+                        await ctx.send(
+                            file=discord.File(data, 'cool_image.png'))
+                await ctx.send(ctx.message.author.mention+" was killed by Mr. Goose.")
                 for f in range(len(users)):
                     if str(ctx.message.author)==users[f][0]:
                         users[f][1]=0
