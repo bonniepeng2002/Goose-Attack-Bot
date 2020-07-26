@@ -106,9 +106,10 @@ async def attack(ctx, member : discord.Member):
         " assaulted",]
     diequotes=[
         " has been pecked to death by ",
-        " has died in the ~~hands~~ *wings* ",
+        " has died in the ~~hands~~ *wings* of ",
         " was sent straight to heaven by ",
-        " IS BLASTING OFF AGAINNN! Thanks a lot, "
+        " IS BLASTING OFF AGAINNN :skull: Thanks a lot, ",
+        " just received the ultimate L by "
     ]
     for h in range(len(users)):
         if str(ctx.message.author)==users[h][0] and users[h][2]==0:
