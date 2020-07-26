@@ -45,23 +45,27 @@ async def on_guild_join(guild):
             f'HONK HONK **{member.name}**!\n'
             f'Always nice to meet another ~~victim~~ friend :heart:\n\n'
             f'Here\'s what you can do:\n'
-            f'**!honk:** honk at me and I\'ll respond.\n'
-            f'**!army:** assemble your own goose army, use it to attack others.\n'
-            f'**!attack @[user]:** unleash hell on another user.\n'
-            f'**!stats:** check your stats.\n')
-            assignhealth(member.id)
+            f'**!honk** : honk at me and I\'ll respond.\n'
+            f'**!army** : assemble your own goose army, use it to attack others.\n'
+            f'**!attack @[user]** : unleash hell on another user.\n'
+            f'**!stats** : check your stats.\n')
+            assignhealth(member)
+        users.append(['Mr.Goose#8280', max, 0, False, 'Alive']) #since joining guild, doesn't append itself
+        await bot.change_presence(
+            activity=discord.Game(name='Untitled Goose Game'))
 
 #alert when ready
-@bot.event
+'''@bot.event
 async def on_ready():
     #await bot.get_channel(735887013215076366).send("HONK activated")
     print('Honk activated')
     for guild in bot.guilds:
         for member in guild.members:
-            print(member)
+            print("creating list")
             assignhealth(member)
     await bot.change_presence(activity=discord.Game(name='Untitled Goose Game'))
-
+    print(users)
+'''
 # we do not want the bot to reply to itself
 @bot.event
 async def on_message(message):
