@@ -31,6 +31,20 @@ def checkifdead(victim):
 uno = discord.Embed()
 uno.set_image(url='https://media.tenor.com/images/ee6e6bb6f35b030eab0dbb7c12040275/tenor.gif')
 
+hap = discord.Embed()
+hap.set_image(url='https://m5.paperblog.com/i/68/686386/here-is-theat-happy-goose-again-and-another-o-L-jYMqei.jpeg')
+
+sad = discord.Embed()
+sad.set_image(url='https://i1.sndcdn.com/avatars-000178938366-zw94tr-t500x500.jpg')
+
+ang = discord.Embed()
+ang.set_image(url='https://i.redd.it/ziyrjzn4fho21.png')
+
+shok = discord.Embed()
+shok.set_image(url='https://live.staticflickr.com/5292/5396005497_a4cd1bf1c8_z.jpg')
+
+hung = discord.Embed()
+hung.set_image(url='https://marcusmichaels.com/blog/wp-content/uploads/2010/06/goose.jpg')
 #---------------------EVENTS----------------------
 
 #send message when joined
@@ -54,7 +68,8 @@ async def on_guild_join(guild):
             f'**!honk** : honk at me and I\'ll respond.\n'
             f'**!army** : assemble your own goose army, use it to attack others.\n'
             f'**!attack @[user]** : unleash hell on another user.\n'
-            f'**!stats** : check your stats.\n')
+            f'**!stats** : check your stats.\n'
+            f'**!mood** : see Mr.Goose\'s current mood.\n')
             assignhealth(member)
             print(users)
 
@@ -63,10 +78,11 @@ async def on_guild_join(guild):
 async def on_ready():
     #await bot.get_channel(735887013215076366).send("HONK activated")
     print('Honk activated')
-    #for guild in bot.guilds:
-        #for member in guild.members:
-            #assignhealth(member)
-    #await bot.change_presence(activity=discord.Game(name='Untitled Goose Game'))
+    #comment the below out when not testing
+    for guild in bot.guilds:
+        for member in guild.members:
+            assignhealth(member)
+    await bot.change_presence(activity=discord.Game(name='Untitled Goose Game'))
 
 # we do not want the bot to reply to itself
 @bot.event
@@ -129,7 +145,8 @@ async def attack(ctx, member : discord.Member):
         " knocked out",
         " KO'd",
         " clapped",
-        " destroyed",]
+        " destroyed",
+        " tackled"]
     diequotes=[
         " has been pecked to death by ",
         " has died in the ~~hands~~ *wings* of ",
@@ -179,6 +196,18 @@ async def attack(ctx, member : discord.Member):
                 if checkifdead(member): #if victim is dead, let em know
                     await ctx.send("<@{}>".format(member.id) + random.choice(diequotes)+ str(
                         ctx.message.author.mention) + "'s army! :coffin:")
+
+@bot.command(name='mood', help='Shows Mr.Goose\'s mood')
+async def mood(ctx):
+    moods=[['happy',hap, ' :)'],
+           ['sad', sad, ' :('],
+           ['angry', ang, ' >:('],
+           ['shocked', shok, ' :o'],
+           ['hungry', hung, ' :9']
+           ]
+    select=random.randint(0,len(moods)-1)
+    await ctx.send('Mr. Goose is feeling **'+moods[select][0]+"**"+moods[select][2])
+    await ctx.send(embed=moods[select][1])
 
 '''
 @bot.command(name='create-channel', help='Creates a new channel.')
