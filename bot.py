@@ -144,6 +144,8 @@ async def attack(ctx, member : discord.Member):
                     for z in range(len(users)): #attacker
                         if str(member)==users[j][0] and str(ctx.message.author)==users[z][0]:
                             lefthealth=users[j][1]-users[z][2] #victims health - attackers cp
+                            if lefthealth<=0:
+                                lefthealth=0
                             users[j][1]=lefthealth #update victims hp
                 await ctx.send("<@{}> has ".format(member.id)+str(lefthealth)+"/"+str(max)+ "HP remaining.")
 
