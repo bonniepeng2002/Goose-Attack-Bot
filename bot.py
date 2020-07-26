@@ -73,7 +73,8 @@ async def on_guild_join(guild):
             f'**!mood** : see my current mood.\n'
             f'**!army** : assemble your own goose army, use it to attack others.\n'
             f'**!attack @[user]** : unleash hell on another user.\n'
-            f'**!stats** : check your stats.\n')
+            f'**!stats** : check your stats.\n'
+            f'**!revive @[user]** : revive one of your dead friends... but only if you feel like it...')
             assignhealth(member)
             print(users)
 
@@ -83,7 +84,7 @@ async def on_ready():
     #await bot.get_channel(735887013215076366).send("HONK activated")
     print('Honk activated')
     #comment the below out when not testing
-    
+
     for guild in bot.guilds:
         for member in guild.members:
             assignhealth(member)
@@ -218,6 +219,21 @@ async def mood(ctx):
     select=random.randint(0,len(moods)-1)
     await ctx.send('Mr. Goose is feeling **'+moods[select][0]+"**"+moods[select][2])
     await ctx.send(embed=moods[select][1])
+
+@bot.command(name='revive', help='revive one of your dead friends... but only if you feel like it...')
+async def revive(ctx, member : discord.Member):
+    global users
+    for i in range(len(users)):
+        if str(member)==users[i][0] and users[i][1]==0:
+            users[i][1]=300
+            users[i][2]=0
+            users[i][3]=False
+            users[i][4]='Alive'
+            await ctx.send('With the power of :dizzy: 𝒻𝓇𝒾𝑒𝓃𝒹𝓈𝒽𝒾𝓅 🎀, <@{}> has been revived!'.format(member.id))
+            break
+        else:
+            await ctx.send(f'**{member.name}** is not dead! ʸᵉᵗ')
+            break
 
 '''
 @bot.command(name='create-channel', help='Creates a new channel.')
