@@ -46,6 +46,8 @@ horn = discord.Embed()
 horn.set_image(url='https://live.staticflickr.com/4055/4415122050_a99d6e1d19_b.jpg')
 gang = discord.Embed()
 gang.set_image(url='https://a.wattpad.com/cover/84215647-352-k186022.jpg')
+lone=discord.Embed()
+lone.set_image(url='https://i.redd.it/og8zaq3fib521.jpg')
 
 #---------------------EVENTS----------------------
 
@@ -81,10 +83,12 @@ async def on_ready():
     #await bot.get_channel(735887013215076366).send("HONK activated")
     print('Honk activated')
     #comment the below out when not testing
+    
     for guild in bot.guilds:
         for member in guild.members:
             assignhealth(member)
     await bot.change_presence(activity=discord.Game(name='Untitled Goose Game'))
+
 
 # we do not want the bot to reply to itself
 @bot.event
@@ -208,7 +212,8 @@ async def mood(ctx):
            ['hungry', hung, ' :9'],
            ['VIOLENT', vio, ' >:0'],
            ['...horny', horn, ' ( ͡° ͜ʖ ͡°)'],
-           ['gangsta', gang, ' :triumph::muscle:']
+           ['gangsta', gang, ' :triumph::muscle:'],
+           ['lonely', lone, ' :\'(']
            ]
     select=random.randint(0,len(moods)-1)
     await ctx.send('Mr. Goose is feeling **'+moods[select][0]+"**"+moods[select][2])
