@@ -16,7 +16,15 @@ client = discord.Client()
 
 users=[]
 def assignhealth(member):
-    users.append([str(member), 300, 0]) #[user, health, cp]
+    global users
+    users.append([str(member), 50, 0, False]) #[user, health, cp, dead?]
+
+def checkifdead(victim):
+    global users
+    for i in range(len(users)):
+        if str(victim)==users[i][0] and users[i][1]<=0:
+            users[i][3]=True
+            return True
 
 #---------------------EVENTS----------------------
 
@@ -108,7 +116,10 @@ async def attack(ctx, member : discord.Member):
                     if str(member)==users[j][0] and str(ctx.message.author)==users[z][0]:
                         lefthealth=users[j][1]-users[z][2] #victims health - attackers cp
                         users[j][1]=lefthealth #update victims hp
-            await ctx.send("<@{}>'s remaining HP: ".format(member.id)+str(lefthealth)+"/300")
+            await ctx.send("<@{}> has ".format(member.id)+str(lefthealth)+"/300 HP remaining.")
+            if checkifdead(member): #if victim is dead, let em know
+                await ctx.send("<@{}> has been pecked to death by ".format(member.id) + str(
+                    ctx.message.author.mention) + "!")
             print(users)
 
 '''
