@@ -30,21 +30,23 @@ def checkifdead(victim):
 
 uno = discord.Embed()
 uno.set_image(url='https://media.tenor.com/images/ee6e6bb6f35b030eab0dbb7c12040275/tenor.gif')
-
 hap = discord.Embed()
 hap.set_image(url='https://m5.paperblog.com/i/68/686386/here-is-theat-happy-goose-again-and-another-o-L-jYMqei.jpeg')
-
 sad = discord.Embed()
 sad.set_image(url='https://i1.sndcdn.com/avatars-000178938366-zw94tr-t500x500.jpg')
-
 ang = discord.Embed()
 ang.set_image(url='https://i.redd.it/ziyrjzn4fho21.png')
-
 shok = discord.Embed()
 shok.set_image(url='https://live.staticflickr.com/5292/5396005497_a4cd1bf1c8_z.jpg')
-
 hung = discord.Embed()
 hung.set_image(url='https://marcusmichaels.com/blog/wp-content/uploads/2010/06/goose.jpg')
+vio = discord.Embed()
+vio.set_image(url='https://1039maxfm.com/wp-content/uploads/sites/8/2019/04/GeeseAttack.png')
+horn = discord.Embed()
+horn.set_image(url='https://live.staticflickr.com/4055/4415122050_a99d6e1d19_b.jpg')
+gang = discord.Embed()
+gang.set_image(url='https://a.wattpad.com/cover/84215647-352-k186022.jpg')
+
 #---------------------EVENTS----------------------
 
 #send message when joined
@@ -203,7 +205,10 @@ async def mood(ctx):
            ['sad', sad, ' :('],
            ['angry', ang, ' >:('],
            ['shocked', shok, ' :o'],
-           ['hungry', hung, ' :9']
+           ['hungry', hung, ' :9'],
+           ['VIOLENT', vio, ' >:0'],
+           ['...horny', horn, ' ( ͡° ͜ʖ ͡°)'],
+           ['gangsta', gang, ' :triumph::muscle:']
            ]
     select=random.randint(0,len(moods)-1)
     await ctx.send('Mr. Goose is feeling **'+moods[select][0]+"**"+moods[select][2])
