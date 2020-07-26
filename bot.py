@@ -243,10 +243,10 @@ async def rps(ctx, play):
 
     for i in range(0,len(options)):
         if gplay==options[i][0] and str(play.lower())==options[i][1]:
-            await ctx.send(gplay+options[pick][2]+"\nHONK?? :triumph: you win..")
+            await ctx.send(gplay+options[pick][2]+"\nhonk?? you win..")
             break
         elif gplay==options[i][1] and str(play.lower())==options[i][0]:
-            await ctx.send(gplay+options[pick][2]+"\nI WIN :crown: you kinda suck.")
+            await ctx.send(gplay+options[pick][2]+"\nHONKK I WIN :crown: ")
             break
         elif gplay==str(play.lower()):
             await ctx.send(gplay+options[pick][2]+'\n... a tie!')
