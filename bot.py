@@ -17,7 +17,7 @@ client = discord.Client()
 users=[]
 def assignhealth(member):
     global users
-    users.append([str(member), 50, 0, False]) #[user, health, cp, dead?]
+    users.append([str(member), 300, 0, False]) #[user, health, cp, dead?]
 
 def checkifdead(victim):
     global users
@@ -80,7 +80,6 @@ async def honking(ctx):
 
 #!army
 power=0
-
 @bot.command(name='army', help='Assembles powerful goose army')
 async def assemble(ctx):
     global power, users
@@ -93,8 +92,8 @@ async def assemble(ctx):
     answer = "Assembled goose army of size "+str(number)+"!\nCP: "+str(number*12)
     await ctx.send(answer+"\nready to ~~attack~~ send love")
 
-lefthealth=0
 #!attack
+lefthealth=0
 @bot.command(name='attack', help='Attacks the mentioned user with army previously generated.')
 async def attack(ctx, member : discord.Member):
     global lefthealth
@@ -105,22 +104,29 @@ async def attack(ctx, member : discord.Member):
         " KO'd",
         " clapped",
         " assaulted",]
+    diequotes=[
+        " has been pecked to death by ",
+        " has died in the ~~hands~~ *wings* ",
+        " was sent straight to heaven by ",
+        " IS BLASTING OFF AGAINNN! Thanks a lot, "
+    ]
     for h in range(len(users)):
         if str(ctx.message.author)==users[h][0] and users[h][2]==0:
             await ctx.send("HONK must assemble army first!")
             break
         elif str(ctx.message.author)==users[h][0] and users[h][2]!=0:
-            await ctx.send(say+random.choice(attackquotes)+" <@{}>!".format(member.id))
+            await ctx.send(say+random.choice(attackquotes)+" <@{}>:bangbang:".format(member.id))
+
             for j in range(len(users)): #victim
                 for z in range(len(users)): #attacker
                     if str(member)==users[j][0] and str(ctx.message.author)==users[z][0]:
                         lefthealth=users[j][1]-users[z][2] #victims health - attackers cp
                         users[j][1]=lefthealth #update victims hp
             await ctx.send("<@{}> has ".format(member.id)+str(lefthealth)+"/300 HP remaining.")
+
             if checkifdead(member): #if victim is dead, let em know
-                await ctx.send("<@{}> has been pecked to death by ".format(member.id) + str(
-                    ctx.message.author.mention) + "!")
-            print(users)
+                await ctx.send("<@{}>".format(member.id) + random.choice(diequotes)+ str(
+                    ctx.message.author.mention) + "'s army! :coffin:")
 
 '''
 @bot.command(name='create-channel', help='Creates a new channel.')
