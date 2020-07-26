@@ -98,6 +98,7 @@ async def assemble(ctx):
 #!stats
 @bot.command(name='stats', help='Check\'s the user\'s stats.')
 async def stats(ctx):
+    global users
     for i in range(len(users)):
         if str(ctx.message.author.name) in users[i][0]:
             message = '**' + str(
@@ -132,9 +133,10 @@ async def attack(ctx, member : discord.Member):
             if str(member) == "Mr.Goose#8280":
                 await ctx.send("uno reverse.\n"+ctx.message.author.mention+" was killed by Mr. Goose.")
                 for f in range(len(users)):
-                    if str(member)==users[f][0]:
-                        users[f][1]==0
-                        users[f][3]==True
+                    if str(ctx.message.author)==users[f][0]:
+                        users[f][1]=0
+                        users[f][3]=True
+                        users[f][4]='Dead'
             else:
                 await ctx.send(say+random.choice(attackquotes)+" <@{}>:bangbang:".format(member.id))
 
