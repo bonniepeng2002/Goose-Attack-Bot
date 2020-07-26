@@ -66,10 +66,10 @@ async def on_guild_join(guild):
             f'Always nice to meet another ~~victim~~ friend :heart:\n\n'
             f'Here\'s what you can do:\n'
             f'**!honk** : honk at me and I\'ll respond.\n'
+            f'**!mood** : see my current mood.\n'
             f'**!army** : assemble your own goose army, use it to attack others.\n'
             f'**!attack @[user]** : unleash hell on another user.\n'
-            f'**!stats** : check your stats.\n'
-            f'**!mood** : see Mr.Goose\'s current mood.\n')
+            f'**!stats** : check your stats.\n')
             assignhealth(member)
             print(users)
 
