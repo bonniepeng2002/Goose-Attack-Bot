@@ -15,15 +15,18 @@ client = discord.Client()
 #---------------------FUNCTIONS----------------------
 
 users=[]
+max=300
 def assignhealth(member):
-    global users
-    users.append([str(member), 300, 0, False]) #[user, health, cp, dead?]
+    global users, max
+    users.append([str(member), max, 0, False, 'Alive']) #[user, health, cp, dead?, status]
 
 def checkifdead(victim):
     global users
     for i in range(len(users)):
         if str(victim)==users[i][0] and users[i][1]<=0:
             users[i][3]=True
+            users[i][1]=0
+            users[i][4]='Dead'
             return True
 
 #---------------------EVENTS----------------------
@@ -36,10 +39,10 @@ async def on_guild_join(guild):
         await general.send('HONK HONK B*TCHES\nI have arrived :gun::baby_chick:')
     for guild in bot.guilds:
         for member in guild.members:
-            #await member.create_dm()
-            #await member.dm_channel.send(
-            #f'HONK HONK **{member.name}**!\n'
-            #f'Always nice to meet another ~~victim~~ friend :heart:')
+            await member.create_dm()
+            await member.dm_channel.send(
+            f'HONK HONK **{member.name}**!\n'
+            f'Always nice to meet another ~~victim~~ friend :heart:')
             assignhealth(member.id)
 
 #alert when ready
@@ -89,14 +92,23 @@ async def assemble(ctx):
     for i in range(len(users)):
         if users[i][0]==person:
             users[i][2]=power
-    answer = "Assembled goose army of size "+str(number)+"!\nCP: "+str(number*12)
+    answer = "Assembled goose army of size "+str(number)+"!"
     await ctx.send(answer+"\nready to ~~attack~~ send love")
+
+#!stats
+@bot.command(name='stats', help='Check\'s the user\'s stats.')
+async def stats(ctx):
+    for i in range(len(users)):
+        if str(ctx.message.author.name) in users[i][0]:
+            message = '**' + str(
+                ctx.message.author.name) + '\'s** stats:\nHealth: ' + str(users[i][1])+"/"+str(max)+"\nStrength: "+str(users[i][2])+"/100\nStatus: "+str(users[i][4])
+            await ctx.send(message)
 
 #!attack
 lefthealth=0
 @bot.command(name='attack', help='Attacks the mentioned user with army previously generated.')
 async def attack(ctx, member : discord.Member):
-    global lefthealth
+    global lefthealth, users
     say = "With the power of "+str(power)+" geese, "+'\n'+str(ctx.message.author.mention)
     attackquotes=[
         " brutally attacked",
@@ -111,23 +123,31 @@ async def attack(ctx, member : discord.Member):
         " IS BLASTING OFF AGAINNN :skull: Thanks a lot, ",
         " just received the ultimate L by "
     ]
+
     for h in range(len(users)):
         if str(ctx.message.author)==users[h][0] and users[h][2]==0:
             await ctx.send("HONK must assemble army first!")
             break
         elif str(ctx.message.author)==users[h][0] and users[h][2]!=0:
-            await ctx.send(say+random.choice(attackquotes)+" <@{}>:bangbang:".format(member.id))
+            if str(member) == "Mr.Goose#8280":
+                await ctx.send("uno reverse.\n"+ctx.message.author.mention+" was killed by Mr. Goose.")
+                for f in range(len(users)):
+                    if str(member)==users[f][0]:
+                        users[f][1]==0
+                        users[f][3]==True
+            else:
+                await ctx.send(say+random.choice(attackquotes)+" <@{}>:bangbang:".format(member.id))
 
-            for j in range(len(users)): #victim
-                for z in range(len(users)): #attacker
-                    if str(member)==users[j][0] and str(ctx.message.author)==users[z][0]:
-                        lefthealth=users[j][1]-users[z][2] #victims health - attackers cp
-                        users[j][1]=lefthealth #update victims hp
-            await ctx.send("<@{}> has ".format(member.id)+str(lefthealth)+"/300 HP remaining.")
+                for j in range(len(users)): #victim
+                    for z in range(len(users)): #attacker
+                        if str(member)==users[j][0] and str(ctx.message.author)==users[z][0]:
+                            lefthealth=users[j][1]-users[z][2] #victims health - attackers cp
+                            users[j][1]=lefthealth #update victims hp
+                await ctx.send("<@{}> has ".format(member.id)+str(lefthealth)+"/"+str(max)+ "HP remaining.")
 
-            if checkifdead(member): #if victim is dead, let em know
-                await ctx.send("<@{}>".format(member.id) + random.choice(diequotes)+ str(
-                    ctx.message.author.mention) + "'s army! :coffin:")
+                if checkifdead(member): #if victim is dead, let em know
+                    await ctx.send("<@{}>".format(member.id) + random.choice(diequotes)+ str(
+                        ctx.message.author.mention) + "'s army! :coffin:")
 
 '''
 @bot.command(name='create-channel', help='Creates a new channel.')
