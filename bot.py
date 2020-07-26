@@ -117,44 +117,55 @@ lefthealth=0
 @bot.command(name='attack', help='Attacks the mentioned user with army previously generated.')
 async def attack(ctx, member : discord.Member):
     global lefthealth, users
-    say = "With the power of "+str(power)+" geese, "+'\n'+str(ctx.message.author.mention)
+    say = "With the power of "+str(power)+" geese, \n"+str(ctx.message.author.mention)
     attackquotes=[
         " brutally attacked",
         " knocked out",
         " KO'd",
         " clapped",
-        " assaulted",]
+        " destroyed",]
     diequotes=[
         " has been pecked to death by ",
         " has died in the ~~hands~~ *wings* of ",
         " was sent straight to heaven by ",
-        " IS BLASTING OFF AGAINNN :skull: Thanks a lot, ",
         " just received the ultimate L by "
     ]
-
     for h in range(len(users)):
-        if str(ctx.message.author)==users[h][0] and users[h][2]==0:
+        print(users)
+
+        if str(ctx.message.author)==users[h][0] and users[h][2]==0: #if you dont have army
             await ctx.send("HONK must assemble army first!")
             break
-        elif str(ctx.message.author)==users[h][0] and users[h][2]!=0:
-            if str(member) == str(ctx.message.author):
+
+        elif str(member) == users[h][0] and users[h][3] == True:  # if victim is already dead
+            await ctx.send(f'**{member.name}** is already dead :dizzy_face:')
+            break
+
+        elif str(ctx.message.author) == users[h][0] and users[h][3] == True:  # if you attack when dead
+            await ctx.send(
+                'You silly goose! You can\'t attack when you\'re dead')
+            break
+
+        elif str(ctx.message.author)==users[h][0] and users[h][2]!=0: #if you have army
+
+            if str(member) == str(ctx.message.author): #if you attack yourself
                 await ctx.send("Stop it. Get some help.")
-            elif str(member) == "Mr.Goose#8280":
+
+            elif str(member) == "Mr.Goose#8280": #if you attack the bot
                 async with aiohttp.ClientSession() as session:
                     async with session.get(uno) as resp:
                         if resp.status != 200:
                             return await ctx.send(
-                                'Could not download file...')
+                                'no. u. :gun:')
                         data = io.BytesIO(await resp.read())
                         await ctx.send(
-                            file=discord.File(data, 'cool_image.png'))
+                            file=discord.File(data, 'uno reverse'))
                 await ctx.send(ctx.message.author.mention+" was killed by Mr. Goose.")
-                for f in range(len(users)):
-                    if str(ctx.message.author)==users[f][0]:
-                        users[f][1]=0
-                        users[f][3]=True
-                        users[f][4]='Dead'
-            else:
+                users[h][1]=0
+                users[h][3]=True
+                users[h][4]='Dead'
+
+            else: #you're allowed to attack
                 await ctx.send(say+random.choice(attackquotes)+" <@{}>:bangbang:".format(member.id))
 
                 for j in range(len(users)): #victim
@@ -164,7 +175,7 @@ async def attack(ctx, member : discord.Member):
                             if lefthealth<=0:
                                 lefthealth=0
                             users[j][1]=lefthealth #update victims hp
-                await ctx.send("<@{}> has ".format(member.id)+str(lefthealth)+"/"+str(max)+ "HP remaining.")
+                await ctx.send("<@{}> has ".format(member.id)+str(lefthealth)+"/"+str(max)+ " HP remaining.")
 
                 if checkifdead(member): #if victim is dead, let em know
                     await ctx.send("<@{}>".format(member.id) + random.choice(diequotes)+ str(
