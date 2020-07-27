@@ -165,8 +165,7 @@ async def attack(ctx, member : discord.Member):
     diequotes=[
         " has been pecked to death by ",
         " has died in the ~~hands~~ *wings* of ",
-        " was sent straight to heaven by ",
-        " just received the ultimate L by "
+        " was sent straight to heaven by "
     ]
     for h in range(len(users)):
         print(users)
