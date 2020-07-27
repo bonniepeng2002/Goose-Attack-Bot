@@ -51,6 +51,10 @@ gang = discord.Embed()
 gang.set_image(url='https://a.wattpad.com/cover/84215647-352-k186022.jpg')
 lone=discord.Embed()
 lone.set_image(url='https://i.redd.it/og8zaq3fib521.jpg')
+pop=discord.Embed()
+pop.set_image(url='https://sillygooselol.files.wordpress.com/2018/05/cropped-white-gooses.jpg')
+sne=discord.Embed()
+sne.set_image(url='https://previews.123rf.com/images/uken/uken1407/uken140700035/33222516-lovely-goose-peeping-sneaking-by.jpg')
 
 #---------------------EVENTS----------------------
 
@@ -74,11 +78,11 @@ async def on_guild_join(guild):
             f'Here\'s what you can do:\n'
             f'**!honk** : honk at me and I\'ll respond.\n'
             f'**!mood** : see my current mood.\n'
-            f'**!rps** : Play rock paper scissors with a goose. Yeah.\n'
+            f'**!rps [rock/paper/scissors]** : play rock paper scissors with a goose.\n'
             f'**!army** : assemble your own goose army, use it to attack others.\n'
             f'**!attack @[user]** : unleash hell on another user.\n'
             f'**!stats** : check your stats.\n'
-            f'**!revive @[user]** : revive one of your dead friends... but only if you feel like it...')
+            f'**!revive @[user]** : revive one of your dead friends... but only if you feel like it ;)')
             assignhealth(member)
             print(users)
 
@@ -218,13 +222,15 @@ async def mood(ctx):
            ['VIOLENT', vio, ' >:0'],
            ['...horny', horn, ' ( ͡° ͜ʖ ͡°)'],
            ['gangsta', gang, ' :triumph::muscle:'],
-           ['lonely', lone, ' :\'(']
+           ['lonely', lone, ' :\'('],
+           ['popular', pop, ' :sunglasses:'],
+           ['sneaky', sne, ' :*']
            ]
     select=random.randint(0,len(moods)-1)
     await ctx.send('Mr. Goose is feeling **'+moods[select][0]+"**"+moods[select][2])
     await ctx.send(embed=moods[select][1])
 
-@bot.command(name='revive', help='revive one of your dead friends... but only if you feel like it...')
+@bot.command(name='revive', help='revive one of your dead friends... but only if you feel like it;)')
 async def revive(ctx, member : discord.Member):
     global users
     for i in range(len(users)):
@@ -239,7 +245,7 @@ async def revive(ctx, member : discord.Member):
             await ctx.send(f'**{member.name}** is not dead! ʸᵉᵗ')
             break
 
-@bot.command(name='rps', help='Play rock paper scissors with a goose. Yeah.')
+@bot.command(name='rps', help='Play rock paper scissors with a goose.')
 async def rps(ctx, play):
     options=[['rock', 'paper', ' :punch:'], ['paper', 'scissors', ' :raised_hand:'], ['scissors', 'rock', ' :v:']] #[goose play, what defeats it]
     pick = random.randint(0,2)
