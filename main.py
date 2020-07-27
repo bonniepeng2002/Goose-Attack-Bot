@@ -1,5 +1,8 @@
 # bot.py
-import os, random, discord, io, aiohttp
+#https://GooseAttackBot--bonniepeng.repl.co
+#https://repl.it/talk/learn/Hosting-discordpy-bots-with-replit/11008
+import keep_alive 
+import os, random, discord
 from discord.ext import commands
 from dotenv import load_dotenv
 from discord.utils import find
@@ -71,6 +74,7 @@ async def on_guild_join(guild):
             f'Here\'s what you can do:\n'
             f'**!honk** : honk at me and I\'ll respond.\n'
             f'**!mood** : see my current mood.\n'
+            f'**!rps** : Play rock paper scissors with a goose. Yeah.\n'
             f'**!army** : assemble your own goose army, use it to attack others.\n'
             f'**!attack @[user]** : unleash hell on another user.\n'
             f'**!stats** : check your stats.\n'
@@ -252,19 +256,6 @@ async def rps(ctx, play):
             await ctx.send(gplay+options[pick][2]+'\n... a tie!')
             break
 
-'''
-@bot.command(name='create-channel', help='Creates a new channel.')
-@commands.has_role('admin')
-async def create_channel(ctx, channel_name='channel'):
-    guild = ctx.guild
-    existing_channel = discord.utils.get(guild.channels, name=channel_name)
-    if not existing_channel:
-        print(f'Creating a new channel: {channel_name}')
-        await guild.create_text_channel(channel_name)
-@bot.event
-async def on_command_error(ctx, error):
-    if isinstance(error, commands.errors.CheckFailure):
-        await ctx.send('Honk! You do not have the correct role for this command.')
-'''
+keep_alive.keep_alive()
 
 bot.run(TOKEN)
