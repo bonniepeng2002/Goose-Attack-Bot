@@ -1,4 +1,4 @@
-# bot.py
+# main.py
 #https://GooseAttackBot--bonniepeng.repl.co
 #https://repl.it/talk/learn/Hosting-discordpy-bots-with-replit/11008
 import keep_alive 
@@ -42,11 +42,11 @@ ang.set_image(url='https://i.redd.it/ziyrjzn4fho21.png')
 shok = discord.Embed()
 shok.set_image(url='https://live.staticflickr.com/5292/5396005497_a4cd1bf1c8_z.jpg')
 hung = discord.Embed()
-hung.set_image(url='https://marcusmichaels.com/blog/wp-content/uploads/2010/06/goose.jpg')
+hung.set_image(url='https://i.imgur.com/rYmPYCt.gif')
 vio = discord.Embed()
-vio.set_image(url='https://1039maxfm.com/wp-content/uploads/sites/8/2019/04/GeeseAttack.png')
+vio.set_image(url='https://i.makeagif.com/media/6-12-2015/K1orJG.gif')
 horn = discord.Embed()
-horn.set_image(url='https://live.staticflickr.com/4055/4415122050_a99d6e1d19_b.jpg')
+horn.set_image(url='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT98AG67oRaL_7Dl0eknAKk6AVck34pzqE9Yg&usqp=CAU')
 gang = discord.Embed()
 gang.set_image(url='https://a.wattpad.com/cover/84215647-352-k186022.jpg')
 lone=discord.Embed()
@@ -55,6 +55,12 @@ pop=discord.Embed()
 pop.set_image(url='https://sillygooselol.files.wordpress.com/2018/05/cropped-white-gooses.jpg')
 sne=discord.Embed()
 sne.set_image(url='https://previews.123rf.com/images/uken/uken1407/uken140700035/33222516-lovely-goose-peeping-sneaking-by.jpg')
+danc=discord.Embed()
+danc.set_image(url='https://media1.tenor.com/images/bbc0b37b24fe1695c86e72f56c6d4de9/tenor.gif?itemid=5453422')
+jesus=discord.Embed()
+jesus.set_image(url='https://i2.wp.com/media2.giphy.com/media/5DMqSvxOiGmKQ/giphy.gif')
+mac=discord.Embed()
+mac.set_image(url='https://i.redd.it/pvh86e0dhwv31.png')
 
 #---------------------EVENTS----------------------
 
@@ -82,7 +88,8 @@ async def on_guild_join(guild):
             f'**!army** : assemble your own goose army, use it to attack others.\n'
             f'**!attack @[user]** : unleash hell on another user.\n'
             f'**!stats** : check your stats.\n'
-            f'**!revive @[user]** : revive one of your dead friends... but only if you feel like it ;)')
+            f'**!revive @[user]** : revive one of your dead friends... but only if you feel like it ;)\n\n'
+            f'Honk at <@!693860643203186808> for any inquiries.')
             assignhealth(member)
             print(users)
 
@@ -136,6 +143,7 @@ async def assemble(ctx):
     for i in range(len(users)):
         if users[i][0]==person:
             users[i][2]=power
+            break
     answer = "Assembled goose army of size "+str(number)+"!"
     await ctx.send(answer+"\nready to ~~attack~~ send love")
 
@@ -148,6 +156,7 @@ async def stats(ctx):
             message = '**' + str(
                 ctx.message.author.name) + '\'s** stats:\nHealth: ' + str(users[i][1])+"/"+str(max)+"\nStrength: "+str(users[i][2])+"/100\nStatus: "+str(users[i][4])
             await ctx.send(message)
+            break
 
 #!attack
 lefthealth=0
@@ -166,10 +175,9 @@ async def attack(ctx, member : discord.Member):
         " has been pecked to death by ",
         " has died in the ~~hands~~ *wings* of ",
         " was sent straight to heaven by "
-    ]
+    ]        
+    print(users)
     for h in range(len(users)):
-        print(users)
-
         if str(ctx.message.author)==users[h][0] and users[h][2]==0: #if you dont have army
             await ctx.send("HONK must assemble army first!")
             break
@@ -187,6 +195,7 @@ async def attack(ctx, member : discord.Member):
 
             if str(member) == str(ctx.message.author): #if you attack yourself
                 await ctx.send("Stop it. Get some help.")
+                break
 
             elif str(member) == "Mr.Goose#8280": #if you attack the bot
                 await ctx.send(embed=uno)
@@ -194,6 +203,7 @@ async def attack(ctx, member : discord.Member):
                 users[h][1]=0
                 users[h][3]=True
                 users[h][4]='Dead'
+                break
 
             else: #you're allowed to attack
                 await ctx.send(say+random.choice(attackquotes)+" <@{}>:bangbang:".format(member.id))
@@ -205,12 +215,14 @@ async def attack(ctx, member : discord.Member):
                             if lefthealth<=0:
                                 lefthealth=0
                             users[j][1]=lefthealth #update victims hp
+                            break
                 await ctx.send("<@{}> has ".format(member.id)+str(lefthealth)+"/"+str(max)+ " HP remaining.")
 
                 if checkifdead(member): #if victim is dead, let em know
                     await ctx.send("<@{}>".format(member.id) + random.choice(diequotes)+ str(
                         ctx.message.author.mention) + "'s army! :coffin:")
 
+#!mood
 @bot.command(name='mood', help='Shows Mr.Goose\'s mood')
 async def mood(ctx):
     moods=[['happy',hap, ' :)'],
@@ -220,30 +232,39 @@ async def mood(ctx):
            ['hungry', hung, ' :9'],
            ['VIOLENT', vio, ' >:0'],
            ['...horny', horn, ' ( ͡° ͜ʖ ͡°)'],
-           ['gangsta', gang, ' :triumph::muscle:'],
+           ['gangsta', gang, ' :triumph::moneybag:'],
            ['lonely', lone, ' :\'('],
            ['popular', pop, ' :sunglasses:'],
-           ['sneaky', sne, ' :*']
+           ['sneaky', sne, ' :*'],
+           ['like dancing', danc, ' :▷'],
+           ['like Jesus himself', jesus, ' :flushed:'],
+           ['macho', mac, ' :muscle:']
            ]
     select=random.randint(0,len(moods)-1)
     await ctx.send('Mr. Goose is feeling **'+moods[select][0]+"**"+moods[select][2])
     await ctx.send(embed=moods[select][1])
 
+#!revive
 @bot.command(name='revive', help='revive one of your dead friends... but only if you feel like it;)')
 async def revive(ctx, member : discord.Member):
     global users
     for i in range(len(users)):
-        if str(member)==users[i][0] and users[i][1]==0:
-            users[i][1]=300
-            users[i][2]=0
-            users[i][3]=False
-            users[i][4]='Alive'
-            await ctx.send('With the power of :dizzy: 𝒻𝓇𝒾𝑒𝓃𝒹𝓈𝒽𝒾𝓅 🎀, <@{}> has been revived!'.format(member.id))
-            break
-        else:
-            await ctx.send(f'**{member.name}** is not dead! ʸᵉᵗ')
-            break
+        if str(member)==str(ctx.message.author):
+          await ctx.send('Honk!! That\'s illegal, beg a friend to help.')
+          break
+        else:  
+          if str(member)==users[i][0] and users[i][1]==0:
+              users[i][1]=300
+              users[i][2]=0
+              users[i][3]=False
+              users[i][4]='Alive'
+              await ctx.send('With the power of :dizzy: 𝒻𝓇𝒾𝑒𝓃𝒹𝓈𝒽𝒾𝓅 🎀, <@{}> has been revived!'.format(member.id))
+              break
+          else:
+              await ctx.send(f'**{member.name}** is not dead! ʸᵉᵗ')
+              break
 
+#!rps
 @bot.command(name='rps', help='Play rock paper scissors with a goose.')
 async def rps(ctx, play):
     options=[['rock', 'paper', ' :punch:'], ['paper', 'scissors', ' :raised_hand:'], ['scissors', 'rock', ' :v:']] #[goose play, what defeats it]
