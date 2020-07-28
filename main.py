@@ -12,23 +12,6 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 bot = commands.Bot(command_prefix='!')
 client = discord.Client()
 
-#---------------------FUNCTIONS----------------------
-
-users=[]
-max=300
-def assignhealth(member):
-    global users, max
-    users.append([str(member), max, 0, False, 'Alive']) #[user, health, cp, dead?, status]
-
-def checkifdead(victim):
-    global users
-    for i in range(len(users)):
-        if str(victim)==users[i][0] and users[i][1]<=0:
-            users[i][3]=True
-            users[i][1]=0
-            users[i][4]='Dead'
-            return True
-
 #---------------------FILES----------------------
 
 uno = discord.Embed()
@@ -61,6 +44,24 @@ jesus=discord.Embed()
 jesus.set_image(url='https://i2.wp.com/media2.giphy.com/media/5DMqSvxOiGmKQ/giphy.gif')
 mac=discord.Embed()
 mac.set_image(url='https://i.redd.it/pvh86e0dhwv31.png')
+
+#---------------------FUNCTIONS----------------------
+
+users=[]
+max=300
+def assignhealth(member):
+    global users, max
+    if [str(member), max, 0, False, 'Alive'] not in users:
+      users.append([str(member), max, 0, False, 'Alive']) #[user, health, cp, dead?, status]
+
+def checkifdead(victim):
+    global users
+    for i in range(len(users)):
+        if str(victim)==users[i][0] and users[i][1]<=0:
+            users[i][3]=True
+            users[i][1]=0
+            users[i][4]='Dead'
+            return True
 
 #---------------------EVENTS----------------------
 
