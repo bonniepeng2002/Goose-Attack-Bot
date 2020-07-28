@@ -63,13 +63,16 @@ def checkifdead(victim):
             users[i][4]='Dead'
             return True
 
+
+
 #---------------------EVENTS----------------------
 
 #send message when joined
 @bot.event
 async def on_guild_join(guild):
     global users
-    users.append(['Mr.Goose#8280', max, 0, False,
+    if ['Mr.Goose#8280', max, 0, False, 'Alive'] not in users:
+      users.append(['Mr.Goose#8280', max, 0, False,
                   'Alive'])  # since joining guild, doesn't append itself
     await bot.change_presence(
         activity=discord.Game(name='Untitled Goose Game'))
