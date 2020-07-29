@@ -180,7 +180,6 @@ async def attack(ctx, member : discord.Member):
         " has died in the ~~hands~~ *wings* of ",
         " was sent straight to heaven by "
     ]        
-    print(users)
     for h in range(len(users)):
         if str(ctx.message.author)==users[h][0] and users[h][2]==0: #if you dont have army
             await ctx.send("HONK must assemble army first!")
@@ -225,6 +224,7 @@ async def attack(ctx, member : discord.Member):
                 if checkifdead(member): #if victim is dead, let em know
                     await ctx.send("<@{}>".format(member.id) + random.choice(diequotes)+ str(
                         ctx.message.author.mention) + "'s army! :coffin:")
+    print(users)
 
 #!mood
 @bot.command(name='mood', help='Shows Mr.Goose\'s mood')
@@ -264,7 +264,7 @@ async def revive(ctx, member : discord.Member):
               users[i][4]='Alive'
               await ctx.send('With the power of :dizzy: 𝒻𝓇𝒾𝑒𝓃𝒹𝓈𝒽𝒾𝓅 🎀, <@{}> has been revived!'.format(member.id))
               break
-          else:
+          elif str(member)==users[i][0] and users[i][1]!=0:
               await ctx.send(f'**{member.name}** is not dead! ʸᵉᵗ')
               break
 
