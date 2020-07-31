@@ -1,7 +1,7 @@
 # main.py
 #https://GooseAttackBot--bonniepeng.repl.co
 #https://repl.it/talk/learn/Hosting-discordpy-bots-with-replit/11008
-import keep_alive 
+import keep_alive
 import os, random, discord
 from discord.ext import commands
 from dotenv import load_dotenv
@@ -9,7 +9,7 @@ from discord.utils import find
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-bot = commands.Bot(command_prefix='!')
+bot = commands.Bot(command_prefix='$')
 client = discord.Client()
 
 #---------------------FILES----------------------
@@ -63,8 +63,6 @@ def checkifdead(victim):
             users[i][4]='Dead'
             return True
 
-
-
 #---------------------EVENTS----------------------
 
 #send message when joined
@@ -72,43 +70,27 @@ def checkifdead(victim):
 async def on_guild_join(guild):
     global users
     if ['Mr.Goose#8280', max, 0, False, 'Alive'] not in users:
-      users.append(['Mr.Goose#8280', max, 0, False,
-                  'Alive'])  # since joining guild, doesn't append itself
-    await bot.change_presence(
-        activity=discord.Game(name='Untitled Goose Game'))
+      users.append(['Mr.Goose#8280', max, 0, False, 'Alive'])  # since joining guild, doesn't append itself
+    await bot.change_presence(activity=discord.Game(name='Untitled Goose Game'))
     general = find(lambda x: x.name == 'general',  guild.text_channels)
     if general and general.permissions_for(guild.me).send_messages:
-        await general.send('HONK HONK B*TCHES :gun::baby_chick:')
+        await general.send('HONK HONK B*TCHES\n'
+                           'Always nice to meet more ~~victims~~ friends :heart:\n')
     for guild in bot.guilds:
         for member in guild.members:
-            await member.create_dm()
-            await member.dm_channel.send(
-            f'HONK HONK **{member.name}**!\n'
-            f'Always nice to meet another ~~victim~~ friend :heart:\n\n'
-            f'Here\'s what you can do:\n'
-            f'**!honk** : honk at me and I\'ll respond.\n'
-            f'**!mood** : see my current mood.\n'
-            f'**!rps [rock/paper/scissors]** : play rock paper scissors with a goose.\n'
-            f'**!army** : assemble your own goose army, use it to attack others.\n'
-            f'**!attack @[user]** : unleash hell on another user.\n'
-            f'**!stats** : check your stats.\n'
-            f'**!revive @[user]** : revive one of your dead friends... but only if you feel like it ;)\n\n'
-            f'Honk at <@!693860643203186808> for any inquiries.')
             assignhealth(member)
-            print(users)
+    print(users)
 
 #alert when ready
 @bot.event
 async def on_ready():
     #await bot.get_channel(735887013215076366).send("HONK activated")
     print('Honk activated')
-    #comment the below out when not testing
 
     for guild in bot.guilds:
         for member in guild.members:
             assignhealth(member)
     await bot.change_presence(activity=discord.Game(name='Untitled Goose Game'))
-
 
 # we do not want the bot to reply to itself
 @bot.event
@@ -118,6 +100,31 @@ async def on_message(message):
         return
 
 #---------------------COMMANDS----------------------
+
+bot.remove_command('help')
+#$help
+@bot.command(name='help')
+async def help(ctx):
+    #await ctx.message.author.create_dm()
+    #await ctx.message.author.dm_channel.send(
+    # f'HONK HONK **{ctx.message.author.name}**!\n'
+    # f'Honk at <@!693860643203186808> for any inquiries.'
+    embedVar = discord.Embed(title="Mr.Goose Commands", description=" ", color=0xFF852D)
+    embedVar.add_field(name="$honk", value="honk at me and I\'ll respond", inline=False)
+    embedVar.add_field(name="$mood", value="see my current mood", inline=False)
+    embedVar.add_field(name="$rps [rock/paper/scissors]",
+                       value="play rock paper scissors with a goose",
+                       inline=False)
+    embedVar.add_field(name="$army",
+                       value="assemble your own goose army, must be done before attacking",
+                       inline=False)
+    embedVar.add_field(name="$attack @[user]",
+                       value="unleash hell on another user", inline=False)
+    embedVar.add_field(name="$stats", value="check your stats", inline=False)
+    embedVar.add_field(name="$revive @[user]",
+                       value="revive one of your dead friends... but only if you feel like it ;)",
+                       inline=False)
+    await ctx.send(embed=embedVar)
 
 #!honk
 @bot.command(name='honk', help='Mr. Goose responds to your honk.')
@@ -136,7 +143,7 @@ async def honking(ctx):
     response = random.choice(honkquotes)
     await ctx.send(response)
 
-#!army
+#$army
 power=0
 @bot.command(name='army', help='Assembles powerful goose army')
 async def assemble(ctx):
@@ -151,7 +158,7 @@ async def assemble(ctx):
     answer = "Assembled goose army of size "+str(number)+"!"
     await ctx.send(answer+"\nready to ~~attack~~ send love")
 
-#!stats
+#$stats
 @bot.command(name='stats', help='Check\'s the user\'s stats.')
 async def stats(ctx):
     global users
@@ -162,7 +169,7 @@ async def stats(ctx):
             await ctx.send(message)
             break
 
-#!attack
+#$attack
 lefthealth=0
 @bot.command(name='attack', help='Attacks the mentioned user with army previously generated.')
 async def attack(ctx, member : discord.Member):
@@ -179,7 +186,7 @@ async def attack(ctx, member : discord.Member):
         " has been pecked to death by ",
         " has died in the ~~hands~~ *wings* of ",
         " was sent straight to heaven by "
-    ]        
+    ]
     for h in range(len(users)):
         if str(ctx.message.author)==users[h][0] and users[h][2]==0: #if you dont have army
             await ctx.send("HONK must assemble army first!")
@@ -226,7 +233,7 @@ async def attack(ctx, member : discord.Member):
                         ctx.message.author.mention) + "'s army! :coffin:")
     print(users)
 
-#!mood
+#$mood
 @bot.command(name='mood', help='Shows Mr.Goose\'s mood')
 async def mood(ctx):
     moods=[['happy',hap, ' :)'],
@@ -248,7 +255,7 @@ async def mood(ctx):
     await ctx.send('Mr. Goose is feeling **'+moods[select][0]+"**"+moods[select][2])
     await ctx.send(embed=moods[select][1])
 
-#!revive
+#$revive
 @bot.command(name='revive', help='revive one of your dead friends... but only if you feel like it;)')
 async def revive(ctx, member : discord.Member):
     global users
@@ -256,7 +263,7 @@ async def revive(ctx, member : discord.Member):
         if str(member)==str(ctx.message.author):
           await ctx.send('Honk!! That\'s illegal, beg a friend to help.')
           break
-        else:  
+        else:
           if str(member)==users[i][0] and users[i][1]==0:
               users[i][1]=300
               users[i][2]=0
@@ -268,7 +275,7 @@ async def revive(ctx, member : discord.Member):
               await ctx.send(f'**{member.name}** is not dead! ʸᵉᵗ')
               break
 
-#!rps
+#$rps
 @bot.command(name='rps', help='Play rock paper scissors with a goose.')
 async def rps(ctx, play):
     options=[['rock', 'paper', ' :punch:'], ['paper', 'scissors', ' :raised_hand:'], ['scissors', 'rock', ' :v:']] #[goose play, what defeats it]
