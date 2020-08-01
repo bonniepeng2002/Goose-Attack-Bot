@@ -69,8 +69,8 @@ def checkifdead(victim):
 @bot.event
 async def on_guild_join(guild):
     global users
-    if ['Mr.Goose#8280', max, 0, False, 'Alive'] not in users:
-      users.append(['Mr.Goose#8280', max, 0, False, 'Alive'])  # since joining guild, doesn't append itself
+    if ['Mr.Goose ($)#8280', max, 0, False, 'Alive'] not in users:
+      users.append(['Mr.Goose ($)#8280', max, 0, False, 'Alive'])  # since joining guild, doesn't append itself
     await bot.change_presence(activity=discord.Game(name='Untitled Goose Game'))
     general = find(lambda x: x.name == 'general',  guild.text_channels)
     if general and general.permissions_for(guild.me).send_messages:
@@ -207,7 +207,7 @@ async def attack(ctx, member : discord.Member):
                 await ctx.send("Stop it. Get some help.")
                 break
 
-            elif str(member) == "Mr.Goose#8280": #if you attack the bot
+            elif str(member) == "Mr.Goose ($)#8280": #if you attack the bot
                 await ctx.send(embed=uno)
                 await ctx.send(ctx.message.author.mention+" was killed by Mr. Goose.")
                 users[h][1]=0
@@ -232,6 +232,7 @@ async def attack(ctx, member : discord.Member):
                     await ctx.send("<@{}>".format(member.id) + random.choice(diequotes)+ str(
                         ctx.message.author.mention) + "'s army! :coffin:")
     print(users)
+    print('-----------------------------------')
 
 #$mood
 @bot.command(name='mood', help='Shows Mr.Goose\'s mood')
