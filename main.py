@@ -110,19 +110,19 @@ async def help(ctx):
     # f'HONK HONK **{ctx.message.author.name}**!\n'
     # f'Honk at <@!693860643203186808> for any inquiries.'
     embedVar = discord.Embed(title="Mr.Goose Commands", description=" ", color=0xFF852D)
-    embedVar.add_field(name="$honk", value="honk at me and I\'ll respond", inline=False)
-    embedVar.add_field(name="$mood", value="see my current mood", inline=False)
-    embedVar.add_field(name="$rps [rock/paper/scissors]",
-                       value="play rock paper scissors with a goose",
-                       inline=False)
+    embedVar.add_field(name="$honk", value="honk and Mr.Goose will respond", inline=False)
+    embedVar.add_field(name="$mood", value="see Mr.Goose\'s current mood", inline=False)
     embedVar.add_field(name="$army",
                        value="assemble your own goose army, must be done before attacking",
                        inline=False)
-    embedVar.add_field(name="$attack @[user]",
-                       value="unleash hell on another user", inline=False)
+    embedVar.add_field(name="$attack @user",
+                       value="attack another user >:)", inline=False)
     embedVar.add_field(name="$stats", value="check your stats", inline=False)
-    embedVar.add_field(name="$revive @[user]",
+    embedVar.add_field(name="$revive @user",
                        value="revive one of your dead friends... but only if you feel like it ;)",
+                       inline=False)
+    embedVar.add_field(name="$rps rock/paper/scissors",
+                       value="play rock paper scissors with a goose",
                        inline=False)
     await ctx.send(embed=embedVar)
 
@@ -181,11 +181,11 @@ async def attack(ctx, member : discord.Member):
         " KO'd",
         " clapped",
         " destroyed",
-        " tackled"]
+        " tackled",
+        " attacked"]
     diequotes=[
         " has been pecked to death by ",
-        " has died in the ~~hands~~ *wings* of ",
-        " was sent straight to heaven by "
+        " has died in the ~~hands~~ *wings* of "
     ]
     for h in range(len(users)):
         if str(ctx.message.author)==users[h][0] and users[h][2]==0: #if you dont have army
