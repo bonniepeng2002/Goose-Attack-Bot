@@ -153,8 +153,8 @@ async def assemble(ctx):
     person= str(ctx.message.author)
     for i in range(len(users)):
         if users[i][0]==person:
-            users[i][2]=power
-            break
+          users[i][2]=power
+          break
     answer = "Assembled goose army of size "+str(number)+"!"
     await ctx.send(answer+"\nready to ~~attack~~ send love")
 
@@ -174,7 +174,13 @@ lefthealth=0
 @bot.command(name='attack', help='Attacks the mentioned user with army previously generated.')
 async def attack(ctx, member : discord.Member):
     global lefthealth, users
-    say = "With the power of "+str(power)+" geese, \n"+str(ctx.message.author.mention)
+    for i in range(0,len(users)):
+      if users[i][0]==str(ctx.message.author): 
+        say = "With the power of "+str(users[i][2])+" geese, \n"+str(ctx.message.author.mention)
+        break
+      else:
+        say = "With the power of "+str(power)+" geese, \n"+str(ctx.message.author.mention)
+
     attackquotes=[
         " brutally attacked",
         " knocked out",
@@ -231,6 +237,7 @@ async def attack(ctx, member : discord.Member):
                 if checkifdead(member): #if victim is dead, let em know
                     await ctx.send("<@{}>".format(member.id) + random.choice(diequotes)+ str(
                         ctx.message.author.mention) + "'s army! :coffin:")
+                    break
     print(users)
     print('-----------------------------------')
 
