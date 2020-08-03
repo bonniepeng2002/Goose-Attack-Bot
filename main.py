@@ -144,16 +144,15 @@ async def honking(ctx):
     await ctx.send(response)
 
 #$army
-power=0
 @bot.command(name='army', help='Assembles powerful goose army')
 async def assemble(ctx):
     global power, users
     number = int(random.triangular(1,101,10))
-    power = number
     person= str(ctx.message.author)
     for i in range(len(users)):
         if users[i][0]==person:
-          users[i][2]=power
+          users[i][2]=number
+          print(users[i])
           break
     answer = "Assembled goose army of size "+str(number)+"!"
     await ctx.send(answer+"\nready to ~~attack~~ send love")
@@ -175,11 +174,9 @@ lefthealth=0
 async def attack(ctx, member : discord.Member):
     global lefthealth, users
     for i in range(0,len(users)):
-      if users[i][0]==str(ctx.message.author): 
+      if users[i][0]==str(ctx.message.author):
         say = "With the power of "+str(users[i][2])+" geese, \n"+str(ctx.message.author.mention)
         break
-      else:
-        say = "With the power of "+str(power)+" geese, \n"+str(ctx.message.author.mention)
 
     attackquotes=[
         " brutally attacked",
