@@ -6,4 +6,4 @@ Connect Mr.Goose to your Discord server to explore the different ways to attac- 
 May the strongest goose win.
 
 CLICK THE LINK to add to your server, hope you enjoy!
-https://discord.com/oauth2/authorize?client_id=264434993625956352&scope=identify&redirect_uri=https%3A%2F%2Ftop.gg%2Flogin%2Fcallback&response_type=code
+https://discord.com/oauth2/authorize?client_id=735870118646775928&scope=bot&permissions=154624
