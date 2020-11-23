@@ -1,4 +1,4 @@
-# GooseAttackBot
+# Mr. Goose Bot
 HONK!
 The Mr.Goose Discord bot features the character, Mr. Goose, notoriously known at the University of Waterloo. 
 Geese around the campus are known as very violent to anyone in its path, and what better way to escape the torture on campus than to experience the torture online???
