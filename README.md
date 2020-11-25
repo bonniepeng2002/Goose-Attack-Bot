@@ -5,5 +5,4 @@ Geese around the campus are known as very violent to anyone in its path, and wha
 Connect Mr.Goose to your Discord server to explore the different ways to attac- i mean send love to your friends, and assert dominanc- i mean assert your friendship! 
 May the strongest goose win.
 
-CLICK THE LINK to add to your server, hope you enjoy!
-https://top.gg/bot/735870118646775928
+[Click here](https://top.gg/bot/735870118646775928) to add to your server, hope you enjoy!
